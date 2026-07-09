@@ -139,8 +139,15 @@ def build_text_dataset(texts):
     
     return Dataset.from_dict({"text": texts})
 
-# Step 13 - tokenize_text (not yet solved)
-# TODO: implement
+# Step 13 - tokenize_text
+def tokenize_text(tokenizer, text):
+    """Tokenize a single string and return a list[int] of input ids."""
+    # TODO: call the tokenizer on text and return its input_ids as a plain list
+    
+    encoded = tokenizer(text)
+    input_ids = list(encoded["input_ids"])
+
+    return input_ids
 
 # Step 14 - count_tokens (not yet solved)
 # TODO: implement
