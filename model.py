@@ -175,8 +175,23 @@ def build_training_arguments(output_dir='./sft_out', max_steps=5, learning_rate=
         report_to="none",
     )
 
-# Step 16 - build_sft_trainer (not yet solved)
-# TODO: implement
+# Step 16 - build_sft_trainer
+import torch
+from transformers import TrainingArguments
+from trl import SFTTrainer
+
+def build_sft_trainer(model, tokenizer, dataset, training_args, max_seq_length=256):
+    """Construct a trl SFTTrainer over dataset['text'] ready to .train()."""
+    # TODO: wire model, tokenizer, dataset, and training_args into an SFTTrainer
+
+    return SFTTrainer(
+        model=model,
+        tokenizer=tokenizer,
+        train_dataset=dataset,
+        dataset_text_field="text",
+        max_seq_length=max_seq_length,
+        args=training_args,
+    )
 
 # Step 17 - run_sft_training (not yet solved)
 # TODO: implement
