@@ -193,8 +193,22 @@ def build_sft_trainer(model, tokenizer, dataset, training_args, max_seq_length=2
         args=training_args,
     )
 
-# Step 17 - run_sft_training (not yet solved)
-# TODO: implement
+# Step 17 - run_sft_training
+def run_sft_training(trainer):
+    """Run a few SFT steps and return the final training loss as a float."""
+    import trl.trainer.sft_config as sft_config_module
+
+    # Repair stale class identity caused by TRL being reloaded in the notebook.
+    args_class = trainer.args.__class__
+    original_class = sft_config_module.SFTConfig
+
+    try:
+        sft_config_module.SFTConfig = args_class
+        train_output = trainer.train()
+    finally:
+        sft_config_module.SFTConfig = original_class
+
+    return float(train_output.training_loss)
 
 # Step 18 - switch_to_inference_mode (not yet solved)
 # TODO: implement
