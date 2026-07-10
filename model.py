@@ -155,8 +155,25 @@ def count_tokens(input_ids):
     # TODO: return the length of the input_ids sequence
     return len(input_ids)
 
-# Step 15 - build_training_arguments (not yet solved)
-# TODO: implement
+# Step 15 - build_training_arguments
+def build_training_arguments(output_dir='./sft_out', max_steps=5, learning_rate=2e-4):
+    """Return featherweight TrainingArguments for the SFT run."""
+    # TODO: build TrainingArguments with batch size 1, given max_steps, given lr, bf16 or fp16.
+    use_bf16 = (
+        torch.cuda.is_available()
+        and torch.cuda.is_bf16_supported()
+    )
+
+    return TrainingArguments(
+        output_dir=output_dir,
+        per_device_train_batch_size=1,
+        max_steps=max_steps,
+        learning_rate=learning_rate,
+        bf16=use_bf16,
+        fp16=torch.cuda.is_available() and not use_bf16,
+        logging_steps=1,
+        report_to="none",
+    )
 
 # Step 16 - build_sft_trainer (not yet solved)
 # TODO: implement
